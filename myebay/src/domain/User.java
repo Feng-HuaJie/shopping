@@ -1,6 +1,6 @@
 package domain;
 /**
- * 。
+ * 
  * @author Fenghuajie
  *
  */
