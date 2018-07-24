@@ -5,24 +5,24 @@ package domain;
  *
  */
 public class User {
-	private int uid;
-    private String uname;
+	private int id;
+    private String name;
     private String password;
 	public User() {
 		super();
 		
 	}
-	public int getUid() {
-		return uid;
+	public int getId() {
+		return id;
 	}
-	public void setUid(int uid) {
-		this.uid = uid;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getUname() {
-		return uname;
+	public String getName() {
+		return name;
 	}
-	public void setUname(String uname) {
-		this.uname = uname;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getPassword() {
 		return password;
