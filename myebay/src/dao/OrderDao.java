@@ -10,31 +10,39 @@ import domain.Order;
  
  
 public class OrderDao {
-	Connection c = null;
-	PreparedStatement ps = null;
-	ResultSet rs = null;
  
-    public void addOrder(Order o) {
-    	String sql = "insert into order_ values(null,?)";
-
+    public void insert(Order o) {
+ 
         try {
-	        c = DBUtil.getConn();
-	        ps = c.prepareStatement(sql);
-
-            ps.setInt(1, o.getUser().getUid());
+            Class.forName("com.mysql.jdbc.Driver");
+ 
+            Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/cart?characterEncoding=UTF-8",
+                    "root", "admin");
+ 
+            String sql = "insert into order_ values(null,?)";
+ 
+            PreparedStatement ps = c.prepareStatement(sql);
+ 
+            ps.setInt(1, o.getUser().getId());
+ 
             ps.execute();
  
-            rs = ps.getGeneratedKeys();
+            ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 int id = rs.getInt(1);
-                o.setOid(id);
+                o.setId(id);
             }
  
+            ps.close();
+ 
+            c.close();
+ 
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
-        	DBUtil.close(rs, ps, c);
         }
  
     }
