@@ -2,7 +2,7 @@ package domain;
  
 public class Product {
  
-    private int pid;
+    private int id;
     private String name;
     private float price;
 	public Product() {
@@ -11,15 +11,15 @@ public class Product {
 	}
 	public Product(int id, String name, float price) {
 		super();
-		this.pid = id;
+		this.id = id;
 		this.name = name;
 		this.price = price;
 	}
 	public int getId() {
-		return pid;
+		return id;
 	}
 	public void setId(int id) {
-		this.pid = id;
+		this.id = id;
 	}
 	public String getName() {
 		return name;
