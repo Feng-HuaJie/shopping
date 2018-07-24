@@ -9,20 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.OrderDao;
-import dao.ItemDao;
+import dao.OrderItemDAO;
 import domain.Order;
-import domain.Item;
+import domain.OrderItem;
 import domain.User;
- 
  
 public class OrderCreateServlet extends HttpServlet {
  
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	protected void service(HttpServletRequest request, HttpServletResponse response)
+    protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
  
         User u = (User) request.getSession().getAttribute("user");
@@ -34,20 +28,18 @@ public class OrderCreateServlet extends HttpServlet {
         Order o = new Order();
         o.setUser(u);
  
-        new OrderDao().addOrder(o);
+        new OrderDao().insert(o);
  
-        List<Item> ois = (List<Item>) request.
-        		getSession().getAttribute("ois");
-        
-        for (Item it : ois) {
-        	it.setOrder(o);
-            new ItemDao().buyMore(it);
+        List<OrderItem> ois = (List<OrderItem>) request.getSession().getAttribute("ois");
+        for (OrderItem oi : ois) {
+            oi.setOrder(o);
+            new OrderItemDAO().insert(oi);
         }
          
         ois.clear();
          
         response.setContentType("text/html; charset=UTF-8");
-        response.getWriter().println("订单创建成功");
+        response.getWriter().println("璁㈠崟鍒涘缓鎴愬姛");
  
     }
 }
