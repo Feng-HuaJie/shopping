@@ -2,22 +2,22 @@ package domain;
 
 public class Order {
 	 
-    int oid;
+    int id;
     User user;
 	public Order() {
 		super();
 		
 	}
-	public Order(int oid, User user) {
+	public Order(int id, User user) {
 		super();
-		this.oid = oid;
+		this.oid = id;
 		this.user = user;
 	}
-	public int getOid() {
-		return oid;
+	public int getId() {
+		return id;
 	}
-	public void setOid(int oid) {
-		this.oid = oid;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public User getUser() {
 		return user;
