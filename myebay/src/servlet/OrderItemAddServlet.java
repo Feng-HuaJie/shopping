@@ -10,45 +10,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ProductDao;
-import domain.Item;
+import domain.OrderItem;
 import domain.Product;
  
  
-public class ItemAddServlet extends HttpServlet {
+public class OrderItemAddServlet extends HttpServlet {
  
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
  
         int num = Integer.parseInt(request.getParameter("num"));
         int pid = Integer.parseInt(request.getParameter("pid"));
-        Product p = new ProductDao().getProductById(pid);
+        Product p = new ProductDao().getProduct(pid);
  
-        Item i = new Item();
+        OrderItem oi = new OrderItem();
  
-        i.setNum(num);
-        i.setProduct(p);
+        oi.setNum(num);
+        oi.setProduct(p);
  
-        List<Item> ois = (List<Item>) request.
-        		getSession().getAttribute("ois");
+        List<OrderItem> ois = (List<OrderItem>) request.getSession().getAttribute("ois");
  
         if (null == ois) {
-            ois = new ArrayList<Item>();
+            ois = new ArrayList<OrderItem>();
             request.getSession().setAttribute("ois", ois);
         }
  
-        boolean flag = false;
-        for (Item item : ois) {
-            if (item.getProduct().getId() == i.getProduct().getId()) {
-            	item.setNum(item.getNum() + i.getNum());
-            	flag = true;
+        boolean found = false;
+        for (OrderItem orderItem : ois) {
+            if (orderItem.getProduct().getId() == oi.getProduct().getId()) {
+                orderItem.setNum(orderItem.getNum() + oi.getNum());
+                found = true;
                 break;
             }
         }
  
-        if (!flag)
-            ois.add(i);
+        if (!found)
+            ois.add(oi);
  
-        response.sendRedirect("/listOrderItem.jsp");
+        response.sendRedirect("/listOrderItem");
  
     }
 }
